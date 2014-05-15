@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
-if (!file_exists('exporter.token')) {
-    file_put_contents('exporter.token', '1');
+if (!file_exists('/srv/data/exporter.token')) {
+    file_put_contents('/srv/data/exporter.token', '1');
 
-    $fp1 = gzopen('news-list.csv.gz', 'w');
-    $fp2 = gzopen('news-content.csv.gz', 'w');
+    $fp1 = gzopen('/srv/data/news-list.csv.gz', 'w');
+    $fp2 = gzopen('/srv/data/news-content.csv.gz', 'w');
 
     if (false !== $fp1 && false !== $fp2) {
         include(__DIR__ . '/../init.inc.php');
