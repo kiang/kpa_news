@@ -1,5 +1,6 @@
 RewriteEngine on
 RewriteBase /
 RewriteRule static/ - [L]
+RewriteRule d/ - [L]
 RewriteRule robots.txt - [L]
 RewriteRule .* index.php
