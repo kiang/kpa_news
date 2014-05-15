@@ -14,7 +14,7 @@ $kpaFeed->setDescription('柯文哲國際後援會');
 $kpaFeed->setChannelElement('language', 'zh-tw');
 $kpaFeed->setChannelElement('pubDate', date(DATE_RSS, time()));
 
-$start = strtotime('-1 month');
+$start = strtotime('-1 day');
 $data = News::search("created_at >= {$start}");
 
 foreach ($data as $news) {
