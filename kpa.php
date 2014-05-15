@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * reference https://gist.github.com/ronnywang/3256e88b208ea8471564
+ */
 include(__DIR__ . '/webdata/init.inc.php');
 include(__DIR__ . '/webdata/stdlibs/FeedWriter-master/FeedTypes.php');
 
@@ -14,7 +17,7 @@ if (isset($_GET['q'])) {
 
 $cacheFile = '/srv/data/rss-' . $qDate . '.json';
 
-if($qDate === date('Y-m-d') && file_exists($cacheFile) && (mktime() - filemtime($cacheFile) > 3600)) {
+if ($qDate === date('Y-m-d') && file_exists($cacheFile) && (mktime() - filemtime($cacheFile) > 3600)) {
     unlink($cacheFile);
 }
 
@@ -29,16 +32,19 @@ if (file_exists($cacheFile)) {
     $data = News::search("created_at >= {$start} and created_at <= {$end}");
 
     foreach ($data as $news) {
+        $newsFound = false;
         foreach ($news->infos as $info) {
-            $text = $info->title . $info->body;
-            if (preg_match('#(柯文哲|柯P)#i', $text)) {
-                $items[] = array(
-                    'title' => $info->title,
-                    'url' => $news->url,
-                    'created' => $news->created_at,
-                    'body' => $info->body,
-                );
-                continue;
+            if (false === $newsFound) {
+                $text = $info->title . $info->body;
+                if (preg_match('#(柯文哲|柯P)#i', $text)) {
+                    $items[] = array(
+                        'title' => $info->title,
+                        'url' => $news->url,
+                        'created' => $news->created_at,
+                        'body' => $info->body,
+                    );
+                    $newsFound = true;
+                }
             }
         }
     }
