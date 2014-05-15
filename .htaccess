@@ -3,4 +3,5 @@ RewriteBase /
 RewriteRule static/ - [L]
 RewriteRule d/ - [L]
 RewriteRule robots.txt - [L]
+RewriteRule kpa.php - [L]
 RewriteRule .* index.php
