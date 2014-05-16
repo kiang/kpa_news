@@ -37,7 +37,7 @@ if (file_exists($cacheFile)) {
             if (false === $newsFound) {
                 $text = $info->title . $info->body;
                 if (preg_match('#(柯文哲|柯P)#i', $text)) {
-                    $items[] = array(
+                    $items[$news->id] = array(
                         'title' => $info->title,
                         'url' => $news->url,
                         'created' => $news->created_at,
@@ -60,6 +60,8 @@ $kpaFeed->setDescription('柯文哲國際後援會');
 
 $kpaFeed->setChannelElement('language', 'zh-tw');
 $kpaFeed->setChannelElement('pubDate', date(DATE_RSS, time()));
+
+krsort($items);
 
 foreach ($items as $item) {
     $newItem = $kpaFeed->createNewItem();
